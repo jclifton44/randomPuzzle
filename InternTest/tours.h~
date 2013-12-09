@@ -1,0 +1,76 @@
+//Jeremy Clifton
+//intern puzzle
+//tours.h
+#define TRUE 1;
+#define FALSE 0;
+Grid* generateGrid(int x, int y, int x_start, int y_start, int x_end, int y_end);
+void* errorCheckedMalloc(int x);
+
+enum location { 
+		START,
+		END,
+		OTHER
+};
+
+typedef struct Node{
+	enum location place;
+	int row;
+	int col;
+	char traveledTo;
+	struct Node* up;
+	struct Node* down;
+	struct Node* left;
+	struct Node* right;
+}Node;
+
+
+typedef struct Grid{
+	int length;
+	int width;
+	struct Node*** Nodes; // Equivilant to Node* Nodes[i][j] where i is col#-1 and j is row#-1
+			// Node*** Makes it more dynamic.
+	
+}Grid;
+
+
+Grid* generateGrid(int x, int y, int x_start, int y_start, int x_end, int y_end){
+	int i,j;
+	Grid* my_grid = (Grid*) errorCheckedMalloc(sizeof(Grid));
+	my_grid->length = y;
+	my_grid->width = x;	
+	my_grid->Nodes = errorCheckedMalloc(x*y*sizeof(void*));
+	
+	for(j=0;j<y;j++){
+		for(i=0;i<x;i++){
+			my_grid->Nodes[i][j] = malloc(sizeof(Node));
+			my_grid->Nodes[i][j]->row = j;
+			my_grid->Nodes[i][j]->col = i;
+		
+			
+
+
+		}
+	}
+
+
+
+
+
+return
+}
+
+
+
+void* errorCheckedMalloc(int x){
+
+	void* ptr = malloc(x);
+	if(ptr==0){
+		printf("Out of memory Cannot malloc. Exiting\n");
+		exit(1);
+	}
+	return ptr;
+
+}
+
+
+
